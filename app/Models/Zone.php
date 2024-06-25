@@ -4,12 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Vehicle extends Model
+class Zone extends Model
 {
     use HasFactory;
-    use SoftDeletes;
 
-    protected $fillable = ['user_id', 'plate_number'];
+    protected $fillable = ['name', 'price_per_hour'];
 }

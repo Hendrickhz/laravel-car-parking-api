@@ -11,12 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('vehicles', function (Blueprint $table) {
+        Schema::create('parkings', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained();
-            $table->string('plate_number');
+            $table->foreignId('vehicle_id')->constrained();
+            $table->foreignId('zone_id')->constrained();
+            $table->dateTime('start_time')->nullable();
+            $table->dateTime('stop_time')->nullable();
+            $table->integer('total_price')->nullable();
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
@@ -25,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('vehicles');
+        Schema::dropIfExists('parkings');
     }
 };
