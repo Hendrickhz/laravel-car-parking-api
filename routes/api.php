@@ -1,6 +1,9 @@
 <?php
 
 use App\Http\Controllers\Api\V1\Auth\LoginController;
+use App\Http\Controllers\Api\V1\Auth\LogoutController;
+use App\Http\Controllers\Api\V1\Auth\PasswordUpdateController;
+use App\Http\Controllers\Api\V1\Auth\ProfileController;
 use App\Http\Controllers\Api\V1\Auth\RegisterController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -22,3 +25,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post('auth/register', RegisterController::class);
 Route::post('auth/login', LoginController::class);
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('profile', [ProfileController::class, 'show'])->name('profile.show');
+    Route::put('profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::put('password', PasswordUpdateController::class)->name('password.update');
+    Route::post('auth/logout', LogoutController::class)->name('logout');
+});
