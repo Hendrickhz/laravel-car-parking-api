@@ -9,6 +9,9 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 
+/**
+ * @group Auth
+ */
 class LoginController extends Controller
 {
     public function  __invoke(Request $request)
@@ -30,7 +33,7 @@ class LoginController extends Controller
 
 
         return response()->json([
-            'access_token'=>$user->createToken($device,expiresAt: $expiresAt)->plainTextToken,
-        ],Response::HTTP_CREATED);
+            'access_token' => $user->createToken($device, expiresAt: $expiresAt)->plainTextToken,
+        ], Response::HTTP_CREATED);
     }
 }
