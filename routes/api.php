@@ -39,6 +39,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('vehicles', VehicleController::class);
 
     //parking
+    Route::get('parkings/active',[ParkingController::class,'active'])->name('parkings.active');
+    Route::get('parkings/history',[ParkingController::class,'history'])->name('parkings.history');
     Route::post('parkings/start', [ParkingController::class, 'start'])->name('parking.start');
     Route::get('parkings/{parking}', [ParkingController::class, 'show'])->name('parking.show');
     Route::put('parkings/{parking}', [ParkingController::class, 'stop'])->name('parking.stop');

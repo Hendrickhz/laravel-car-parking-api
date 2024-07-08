@@ -8,11 +8,22 @@ use App\Models\Parking;
 use App\Services\ParkingPriceService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+
 /**
  * @group Parkings
  */
 class ParkingController extends Controller
 {
+    public function active()
+    {
+        $parkings = Parking::active()->get();
+        return ParkingResource::collection($parkings);
+    }
+    public function history()
+    {
+        $parkings = Parking::stopped()->get();
+        return ParkingResource::collection($parkings);
+    }
     public function start(Request $request)
     {
         $parkingData = $request->validate([
@@ -42,7 +53,8 @@ class ParkingController extends Controller
     {
         $parking->update([
             'stop_time' => now(),
-            'total_price'=>ParkingPriceService::calculatePrice($parking->zone_id,$parking->start_time)        ]);
+            'total_price' => ParkingPriceService::calculatePrice($parking->zone_id, $parking->start_time)
+        ]);
         return ParkingResource::make($parking);
     }
 }
